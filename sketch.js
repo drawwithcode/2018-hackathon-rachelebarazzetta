@@ -10,6 +10,16 @@ function preload(){
   mySong = loadSound('./assets/CasaDePapel.mp3');
   img = loadImage('./assets/maschera.png');
   scritta = loadImage('./assets/scritta.png');
+  tokyo = loadImage('./assets/tokyo.png');
+  rio = loadImage('./assets/rio.png');
+  berlin = loadImage('./assets/berlin.png');
+  nairobi = loadImage('./assets/nairobi.png');
+  denver = loadImage('./assets/denver.png');
+  moscow = loadImage('./assets/moscow.png');
+  oslo = loadImage('./assets/oslo.png');
+  hensilki = loadImage('./assets/hensilki.png');
+
+
 }
 
 function setup() {
@@ -18,7 +28,7 @@ function setup() {
   analyser.setInput(mySong);
   angleMode(DEGREES);
   frameRate(4);
-
+  textFont('Lato');
 }
 
 function draw() {
@@ -26,7 +36,7 @@ function draw() {
     vol = analyser.getLevel();
     vol = map(vol,0,1,0,height);
     var volume = vol/5;
-  var col =  lerpColor(color('#D1222B'), color('#020300'), volume/100)
+  var col =  lerpColor(color('#D1222B'), color('#020300'), volume/60)
   background(col);
 
     if(mySong.isPlaying() == false){
@@ -38,16 +48,17 @@ function draw() {
     var lineCenter3 = new lineCenter(width/2-91, height/2, 270);
     var lineCenter4 = new lineCenter(width/2+91, height/2, 90);
 
-    var mask1 = new mask('Tokyo');
-    var mask2 = new mask('Berlin');
-    var mask3 = new mask('Rio');
-    var mask4 = new mask('Nairobi');
-    var mask5 = new mask('Denver');
-    var mask6 = new mask('Moscou');
-    var mask7 = new mask('Oslo');
-    var mask8 = new mask('Helsinki');
+    var mask1 = new mask('Tokyo', tokyo);
+    var mask2 = new mask('Berlin', berlin);
+    var mask3 = new mask('Rio', rio);
+    var mask4 = new mask('Nairobi', nairobi);
+    var mask5 = new mask('Denver', denver);
+    var mask6 = new mask('Moscow', moscow);
+    var mask7 = new mask('Oslo', oslo);
+    var mask8 = new mask('Helsinki', hensilki);
 
-    // var pallini1 = new pallini();
+
+
 
 push();
     imageMode(CENTER);
@@ -84,36 +95,15 @@ function lineCenter(transX, transY, rot){
 
 }
 
-function pallini(){
-  noStroke();
-  fill('white');
-  var vol = 0;
-    vol = analyser.getLevel();
-    vol = map(vol,0,1,0,height);
-    var volume = vol/5;
 
-  rotate(frameCount * 0.01);
-for(var j = 0; j < 100; j++){
-  push();
-  for(var i = 0; i < 80; i++){
-    translate(100, sin(volume * 0.001 + j) * 10, i * 0.1+ 20);
-    rotate(frameCount * 0.002);
-    push();
-    ellipse(8,6,volume/20);
-    pop();
-  }
-  pop();
-}
-}
-
-function mask(name){
+function mask(name, city){
   push();
       var x = random(0, width);
       var y = random(0, height);
       imageMode(CENTER);
-      image(img, x, y, 50, 50);
+      image(city, x, y, 40, 40);
       img.filter("gray");
-      textSize(20);
+      textSize(15);
       fill('white');
       textAlign(CENTER);
       text(name, x, y+45);
